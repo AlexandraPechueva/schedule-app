@@ -1,0 +1,17 @@
+<div class="schedule-container container">
+  <h1 class="title">Week schedule</h1>
+
+  <div class="form-container">
+    <app-day-schedule [activatedDay]="activatedDay"></app-day-schedule>
+    <div>
+      <div class="days">
+        <ng-container *ngFor="let day of weekDays">
+          <p [ngClass]="{
+          'day': true,
+          'day-activated': day == activatedDay
+        }" (click)="getDay(day)">{{ day }}</p>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

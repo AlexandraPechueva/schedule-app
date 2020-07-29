@@ -1,0 +1,70 @@
+@import '../../../styles/mixins/borders';
+
+:host {
+    @include app-border();
+
+    flex-grow:1;
+    margin: 0 20px;
+}
+
+.input-block {
+    display: flex;
+
+    >*:not(:last-child) {
+        margin-right: 15px;
+    }
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 30px;
+}
+
+.data {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.editable{
+  border:none;
+  outline:none;
+  background:transparent;
+}
+
+.record {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+
+    > input {
+      width: 44%;
+      text-align: center;
+    }
+
+    > i {
+      width: 50px;
+    }
+}
+
+.record > input:focus {
+  border-bottom: 2px solid $main-color;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+@keyframes AddRecords {
+    0% {
+      padding-left: 100px;
+    }
+    100% {
+      padding-left: 0px;
+    } 
+  }
+
+  .animation {
+    animation: AddRecords 400ms;
+  }

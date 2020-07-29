@@ -1,0 +1,53 @@
+@import '../styles/variables.scss';
+@import '../styles/mixins/borders';
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.schedule-container {
+    background-color: $app-background-color;
+    margin: 80px auto;
+    padding: 80px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title {
+    color: $title-color;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.days {
+    @include app-border();
+
+    padding: 10px;
+
+    .day {
+        width: 20px;
+        margin: 10px 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            color: $hover-color;
+            font-weight: bold;
+        }
+    }
+}
+
+.day-activated {
+    color: $main-color;
+    font-weight: bold;
+}
