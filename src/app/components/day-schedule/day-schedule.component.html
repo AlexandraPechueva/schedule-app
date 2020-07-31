@@ -1,20 +1,22 @@
 <div class="schedule">
     <div class="data">
-        <ng-container *ngFor="let record of dayRecords">
+        <ng-container *ngFor="let record of dayRecords;let i=index; trackBy:customTrackBy">
             <div class="animation record">
-                <input type="text" type="time" [(ngModel)]="record.time" class="editable">
-                <input type="text" [(ngModel)]="record.task" class="editable">
+                <input type="text" type="time" class="editable" [(ngModel)]="dayRecords[i].time"
+                    (ngModelChange)="timeModelChangeFn($event)" (focusout)="inputFocusOut(i)">
+                <input type=" text" [(ngModel)]="dayRecords[i].task" class="editable">
+
                 <i (click)="deleteItem(record)" class="material-icons">delete</i>
             </div>
         </ng-container>
     </div>
 
-    <form #todoForm="ngForm" (ngSubmit)="todoForm.resetForm()">
+    <form #todoForm="ngForm" (ngSubmit)="todoForm.resetForm()" ngNativeValidate>
         <div class="input-block">
-            <input #time type="time" class="form-control" placeholder="Add Time" name="time" ngModel>
-            <input #task type="text" class="form-control" placeholder="Add Todo" name="task" ngModel>
+            <input #time type="time" class="form-control" placeholder="Add Time" name="time" ngModel required>
+            <input #task type="text" class="form-control" placeholder="Add Todo" name="task" ngModel required>
 
-            <button class="input-group-text" (click)="addTodo(time.value, task.value)">
+            <button type="submit" class="input-group-text" (click)="addTodo(time.value, task.value)">
                 <i class="material-icons">add</i>
             </button>
         </div>
