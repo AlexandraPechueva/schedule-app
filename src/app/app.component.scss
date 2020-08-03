@@ -9,12 +9,23 @@ body{
 .schedule-container {
     background-color: $app-background-color;
     margin: 80px auto;
-    padding: 80px;
+    padding: 80px 50px;
+    width: 85%;
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        padding: 80px 20px;
+
+    }
 }
 
 .form-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+
+    @media screen and (max-width: 459px) {
+        flex-direction: column;
+    }
 }
 
 .title {
@@ -44,6 +55,15 @@ body{
             color: $hover-color;
             font-weight: bold;
         }
+
+        @media screen and (max-width: 459px) {
+            margin: 0;
+        }
+    }
+
+    @media screen and (max-width: 459px) {
+        display: flex;
+        justify-content: space-around;
     }
 }
 
