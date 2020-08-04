@@ -61,6 +61,11 @@ export class DayScheduleComponent implements OnChanges {
         this.dayRecords.splice(i, 1)
       }
     }
+    this._updateLocalStorage(this.weekRecords);
+  }
+
+  private _updateLocalStorage(weekRecords: any) {
+    this._localStorage.set('weekRecords', weekRecords);
   }
 
   private _makeRecord(time, task): Record {
@@ -77,7 +82,7 @@ export class DayScheduleComponent implements OnChanges {
       this.dayRecords.sort(this._compare);
     }
 
-    this._localStorage.set('weekRecords', weekRecords);
+    this._updateLocalStorage(weekRecords);
   }
 
   private _compare(a, b) {
