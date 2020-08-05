@@ -11,13 +11,32 @@
         </ng-container>
     </div>
 
-    <form #todoForm="ngForm" (ngSubmit)="todoForm.resetForm()" ngNativeValidate>
-        <div class="input-block">
-            <input #time type="time" class="form-control" placeholder="Add Time" name="time" ngModel required>
-            <input #task type="text" class="form-control task-input" placeholder="Add Todo" name="task" ngModel
-                required>
+    <form #todoForm="ngForm" (ngSubmit)="todoForm.resetForm()">
+        <div class="input-group">
+            <div class="input-block">
+                <input #time="ngModel" type="time" class="form-control" placeholder="Add Time" name="time" ngModel
+                    required>
 
-            <button type="submit" class="input-group-text" (click)="addTodo(time.value, task.value)">
+                <ng-container *ngIf="time.invalid && (task.dirty || time.touched)">
+                    <ng-container *ngIf="time.errors.required">
+                        <small class="error-message">Required field</small>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <div class="input-block">
+                <input #task="ngModel" type="text" class="form-control task-input" placeholder="Add Todo" name="task"
+                    ngModel required>
+
+                <ng-container *ngIf="task.invalid && (task.dirty || task.touched)">
+                    <ng-container *ngIf="task.errors.required">
+                        <small class="error-message">Required field</small>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <button type="submit" class="input-group-text add-button" (click)="addTodo(time.value, task.value)"
+                [disabled]="todoForm.invalid">
                 <i class="material-icons">add</i>
             </button>
         </div>

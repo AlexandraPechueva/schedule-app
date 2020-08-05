@@ -12,12 +12,19 @@
   }
 }
 
-.input-block {
+.input-group {
     display: flex;
+    justify-content: space-between;
+}
 
-    >*:not(:last-child) {
-        margin-right: 15px;
-    }
+.input-block {
+  width: 44%;
+  position: relative;
+
+  input {
+    text-align: center;
+    text-overflow: ellipsis;
+  }
 }
 
 .schedule {
@@ -81,3 +88,17 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   .animation {
     animation: AddRecords 400ms;
   }
+
+  .add-button {
+    height: 40px;
+  }
+
+  .add-button:disabled {
+  opacity: 0.5;
+}  
+
+.error-message {
+  position: absolute;
+  color: red;
+  text-align: left;
+}
