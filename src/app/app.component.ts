@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Day } from './models/day';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,9 @@ import { Day } from './models/day';
 export class AppComponent {
   title = 'schedule-app';
   weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+  private _today = new Date().toLocaleDateString('ru-Ru', { weekday: 'short' });
 
-  set activatedDay(val: Day) {
+  set activatedDay(val: number) {
     this._day = val;
   }
 
@@ -19,15 +19,9 @@ export class AppComponent {
     return this._day;
   }
 
-  private _day = {
-    num: this.weekDays.indexOf(new Date().toLocaleDateString('ru-Ru', { weekday: 'short' })),
-    name: new Date().toLocaleDateString('ru-Ru', { weekday: 'short' }),
-  }
+  private _day = this.weekDays.indexOf(this._today);
 
   getDay(day: string) {
-    this.activatedDay = {
-      num: this.weekDays.indexOf(day),
-      name: day,
-    };
+    this.activatedDay = this.weekDays.indexOf(day);
   }
 }

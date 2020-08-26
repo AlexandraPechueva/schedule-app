@@ -8,7 +8,7 @@
         <ng-container *ngFor="let day of weekDays">
           <p [ngClass]="{
           'day': true,
-          'day-activated': day == activatedDay.name
+          'day-activated': day == weekDays[activatedDay]
         }" (click)="getDay(day)">{{ day }}</p>
         </ng-container>
       </div>
