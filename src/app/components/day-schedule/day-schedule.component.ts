@@ -40,7 +40,7 @@ export class DayScheduleComponent implements OnChanges {
     this._setDayRecords(this.weekRecords, this.activatedDay);
   }
 
-  timeModelChangeFn(value) {
+  timeModelChangeFn(value: string) {
     this._newTimeValue = value;
   }
 
@@ -85,7 +85,7 @@ export class DayScheduleComponent implements OnChanges {
     this._updateLocalStorage(weekRecords);
   }
 
-  private _compare(a, b) {
+  private _compare(a: Record, b: Record): number {
     if (a.time < b.time) {
       return -1;
     }
