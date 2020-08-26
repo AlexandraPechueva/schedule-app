@@ -30,7 +30,6 @@ export class DayScheduleComponent implements OnChanges {
 
   ngOnChanges() {
     this._setDayRecords(this.weekRecords, this.activatedDay);
-    console.log(this.weekRecords)
   }
 
   customTrackBy(index: number): number {
