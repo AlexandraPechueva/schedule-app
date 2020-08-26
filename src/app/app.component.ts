@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Day } from './models/day';
 
 @Component({
   selector: 'app-root',
