@@ -1,7 +1,9 @@
 <div class="schedule">
     <div class="data">
         <ng-container *ngFor="let record of dayRecords;let i=index; trackBy:customTrackBy">
-            <div class="animation record">
+            <div [ngClass]="{'animation':true,
+                              'record': true,
+                              'passed-time': dayRecords[i].isPassed }">
                 <input type="text" type="time" class="editable" [(ngModel)]="dayRecords[i].time"
                     (ngModelChange)="timeModelChangeFn($event)" (focusout)="inputFocusOut(i)">
                 <input type=" text" [(ngModel)]="dayRecords[i].task" class="editable">

@@ -68,6 +68,13 @@
     }
 }
 
+.passed-time {
+  > input {
+    color: $warning-color;
+  }
+}
+
+
 .record > input:focus {
   border-bottom: 2px solid $main-color;
 }

@@ -1,10 +1,12 @@
 import { Component, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NgForm } from '@angular/forms';
+import { Day } from 'src/app/models/day';
 
 interface Record {
   time: string;
   task: string;
+  isPassed?: boolean;
 }
 
 @Component({
@@ -17,7 +19,8 @@ export class DayScheduleComponent implements OnChanges {
   constructor(private readonly _localStorage: LocalStorageService,
   ) { }
 
-  @Input() activatedDay = '';
+  // @Input() activatedDay = '';
+  @Input() activatedDay: Day;
   @ViewChild('todoForm') private readonly _form: NgForm;
   @ViewChild('time') timeInput: ElementRef;
   @ViewChild('task') taskInput: ElementRef;
@@ -28,7 +31,8 @@ export class DayScheduleComponent implements OnChanges {
   private _newTimeValue = '';
 
   ngOnChanges() {
-    this._setDayRecords(this.weekRecords, this.activatedDay);
+    this._setDayRecords(this.weekRecords, this.activatedDay.name);
+    console.log(this.dayRecords)
   }
 
   customTrackBy(index: number): number {
@@ -36,8 +40,8 @@ export class DayScheduleComponent implements OnChanges {
   }
 
   inputFocusOut(i: number) {
-    this.weekRecords[this.activatedDay][i].time = this._newTimeValue;
-    this._setDayRecords(this.weekRecords, this.activatedDay);
+    this.weekRecords[this.activatedDay.name][i].time = this._newTimeValue;
+    this._setDayRecords(this.weekRecords, this.activatedDay.name);
   }
 
   timeModelChangeFn(value: string) {
@@ -47,12 +51,12 @@ export class DayScheduleComponent implements OnChanges {
   addTodo(time: string, task: string) {
     if (this._form.invalid) return;
 
-    if (!this.weekRecords[this.activatedDay]) {
-      this.weekRecords[this.activatedDay] = [];
+    if (!this.weekRecords[this.activatedDay.name]) {
+      this.weekRecords[this.activatedDay.name] = [];
     }
 
-    this.weekRecords[this.activatedDay].push(this._makeRecord(time, task))
-    this._setDayRecords(this.weekRecords, this.activatedDay);
+    this.weekRecords[this.activatedDay.name].push(this._makeRecord(time, task))
+    this._setDayRecords(this.weekRecords, this.activatedDay.name);
   }
 
   deleteItem(record: Record) {
@@ -68,10 +72,11 @@ export class DayScheduleComponent implements OnChanges {
     this._localStorage.set('weekRecords', weekRecords);
   }
 
-  private _makeRecord(time, task): Record {
+  private _makeRecord(time: string, task: string): Record {
     return <Record>{
       time: time,
       task: task,
+      isPassed: this._IsPassed(time),
     };
   }
 
@@ -93,5 +98,13 @@ export class DayScheduleComponent implements OnChanges {
       return 1;
     }
     return 0;
+  }
+
+  private _IsPassed(time: string): boolean {
+    const today = new Date();
+    const currentDay = today.getDay() - 1;
+    const currentTime = today.getHours() + ":" + today.getMinutes();
+
+    return this.activatedDay.num < currentDay || time < currentTime;
   }
 }
