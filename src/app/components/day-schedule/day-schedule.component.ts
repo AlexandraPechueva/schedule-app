@@ -84,6 +84,7 @@ export class DayScheduleComponent implements OnChanges {
       this.dayRecords.sort(this._compare);
     }
 
+    this._checkIsTimePassed(this.dayRecords);
     this._updateLocalStorage(weekRecords);
   }
 
@@ -103,5 +104,11 @@ export class DayScheduleComponent implements OnChanges {
     const currentTime = today.getHours() + ":" + today.getMinutes();
 
     return this.activatedDay < currentDay || time < currentTime;
+  }
+
+  private _checkIsTimePassed(dayRecords: Record[]) {
+    dayRecords.forEach(record => {
+      record.isPassed = this._IsPassed(record.time)
+    });
   }
 }
