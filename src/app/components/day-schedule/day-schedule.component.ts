@@ -8,6 +8,10 @@ interface Record {
   isPassed?: boolean;
 }
 
+interface WeekRecords {
+  [key: number]: Record[];
+}
+
 @Component({
   selector: 'app-day-schedule',
   templateUrl: './day-schedule.component.html',
@@ -65,7 +69,7 @@ export class DayScheduleComponent implements OnChanges {
     this._updateLocalStorage(this.weekRecords);
   }
 
-  private _updateLocalStorage(weekRecords: any) {
+  private _updateLocalStorage(weekRecords: WeekRecords) {
     this._localStorage.set('weekRecords', weekRecords);
   }
 
@@ -77,14 +81,14 @@ export class DayScheduleComponent implements OnChanges {
     };
   }
 
-  private _setDayRecords(weekRecords: any, activatedDay: number) {
+  private _setDayRecords(weekRecords: WeekRecords, activatedDay: number) {
     this.dayRecords = weekRecords[activatedDay];
 
     if (this.dayRecords && this.dayRecords.length > 0) {
       this.dayRecords.sort(this._compare);
+      this._checkIsTimePassed(this.dayRecords);
     }
 
-    this._checkIsTimePassed(this.dayRecords);
     this._updateLocalStorage(weekRecords);
   }
 
